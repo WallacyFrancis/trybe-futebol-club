@@ -49,10 +49,10 @@ Match.init(
   },
 );
 
-Club.hasMany(Match, { foreignKey: 'homeTeam', as: 'homeMatchs' });
-Club.hasMany(Match, { foreignKey: 'awayTeam', as: 'awayMatchs' });
+// Club.hasMany(Match, { foreignKey: 'homeTeam', as: 'homeMatchs' });
+// Club.hasMany(Match, { foreignKey: 'awayTeam', as: 'awayMatchs' });
 
-Match.belongsTo(Club, { foreignKey: 'homeTeam', as: 'homeClub' });
-Match.belongsTo(Club, { foreignKey: 'awayTeam', as: 'awayClub' });
+// Match.belongsTo(Club, { foreignKey: 'homeTeam', as: 'homeClub' });
+// Match.belongsTo(Club, { foreignKey: 'awayTeam', as: 'awayClub' });
 
 export default Match;
