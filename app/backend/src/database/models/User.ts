@@ -1,4 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
+import sequelize from '.';
 import db from '.';
 // import OtherModel from './OtherModel';
 
@@ -35,9 +36,9 @@ User.init({
   }
 }, {
   // ... Outras configs
+  sequelize,
+  modelName: 'User',
   underscored: true,
-  sequelize: db,
-  modelName: 'matchs',
   timestamps: false,
 });
 

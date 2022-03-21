@@ -12,7 +12,6 @@ Club.init({
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    allowNull: false,
   },
   club_name: {
     type: DataTypes.STRING,
@@ -22,7 +21,7 @@ Club.init({
   // ... Outras configs
   underscored: true,
   sequelize: db,
-  modelName: 'clubs',
+  modelName: 'Club',
   timestamps: false,
 });
 
@@ -31,10 +30,7 @@ Club.init({
   * Associations 1:N devem ficar em uma das instâncias de modelo
   * */
 
-Match.belongsTo(Club, { foreignKey: 'homeTeam', as: 'homeClube' }); 
-Match.belongsTo(Club, { foreignKey: 'awayTeam', as: 'awayClub' });
-
-Match.hasMany(Club, { foreignKey: 'homeTeam', as: 'homeClube' });
-Match.hasMany(Club, { foreignKey: 'awayTeam', as: 'awayClub' });
+Club.hasMany(Match, { foreignKey: 'id', as: 'matchs' });
+Match.belongsTo(Club, { foreignKey: 'id', as: 'clubs' });
 
 export default Club;
