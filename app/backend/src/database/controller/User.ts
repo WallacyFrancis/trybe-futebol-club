@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import * as UserService from '../service/User';
+import UserService from '../service/User';
 import * as jwt from 'jsonwebtoken';
 
 const secret = process.env.SECRET || '1234';

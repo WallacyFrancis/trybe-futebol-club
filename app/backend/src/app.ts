@@ -1,5 +1,6 @@
 import * as express from 'express';
-import User from './database/controller/User';
+import UserController from './database/controller/User';
+import UserValidation from './middlewares/userValidate';
 
 class App {
   public app: express.Express;
@@ -21,7 +22,13 @@ class App {
 
     this.app.use(accessControl);
     this.app.use(express.json());
-    this.app.post('/login', User.login);
+    this.app.post(
+      '/login',
+      UserValidation.email,
+      UserValidation.password,
+      UserValidation.login,
+      UserController.login
+    );
   }
 
   // ...

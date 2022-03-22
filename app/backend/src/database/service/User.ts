@@ -1,8 +1,16 @@
 import UserModel from '../models/User';
 
-export const login = async (email: string, password: string) => {
-  const user = await UserModel.findOne({ where: {email, password}});
-  return user;
-}
+export default class User {
+  private _email: string;
+  private _password: string;
 
-export const getAll = () => console.log('ok');
+  constructor(email: string, password: string) {
+    this._email = email
+    this._password = password
+  }
+
+  static async login(email: string, password: string) {
+    const user = await UserModel.findOne({ where: {email, password}});
+    return user;
+  }
+};
