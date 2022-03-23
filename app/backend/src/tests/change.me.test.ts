@@ -110,3 +110,67 @@ describe('Teste rota "/login/validate"', () => {
   });
 
 });
+
+describe('Teste rota "/clubs"', () => {
+
+  let chaiHttpResponse: Response;
+
+  before(async () => {
+    sinon
+      .stub(User, "findOne")
+      .resolves(UserMock as User);
+  });
+
+  after(()=>{
+    (User.findOne as sinon.SinonStub).restore();
+  })
+
+  it('Valida status da rota "/clubs"', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .get('/clubs')
+
+    expect(chaiHttpResponse.status).equal(200);
+  });
+
+  it('Valida retorno da rota "/clubs" como array', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .get('/clubs')
+
+    expect(chaiHttpResponse.body).to.be.a('array');
+  });
+
+});
+
+describe('Teste rota "/clubs/:id"', () => {
+
+  let chaiHttpResponse: Response;
+
+  before(async () => {
+    sinon
+      .stub(User, "findOne")
+      .resolves(UserMock as User);
+  });
+
+  after(()=>{
+    (User.findOne as sinon.SinonStub).restore();
+  })
+
+  it('Valida status da rota "/clubs/2"', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .get('/clubs/2')
+
+    expect(chaiHttpResponse.status).equal(200);
+  });
+
+  it('Valida retorno da rota "/clubs/2" como array', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .get('/clubs/2')
+
+    expect(chaiHttpResponse.body).contains({ id: 2, clubName: "Bahia" });
+  });
+
+});

@@ -15,6 +15,9 @@ export default class Club {
 
   static async findByPk(id: number) {
     const club = await ClubModel.findByPk(id);
-    return club;
+    return {
+      id: club?.id,
+      clubName: club?.club_name,
+    };
   }
 }
