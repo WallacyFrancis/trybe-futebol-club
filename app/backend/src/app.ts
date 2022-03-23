@@ -1,6 +1,7 @@
 import * as express from 'express';
 import UserController from './database/controller/User';
 import UserValidation from './middlewares/userValidate';
+import Token from './middlewares/tokenValidate';
 
 class App {
   public app: express.Express;
@@ -22,6 +23,11 @@ class App {
 
     this.app.use(accessControl);
     this.app.use(express.json());
+    this.app.get(
+      '/login/validate',
+      Token.decode,
+      UserController.loginValidate,
+    )
     this.app.post(
       '/login',
       UserValidation.email,
