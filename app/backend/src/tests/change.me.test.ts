@@ -12,7 +12,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Teste rota Login', () => {
+describe('Teste rota "/login"', () => {
 
   let chaiHttpResponse: Response;
 
@@ -85,4 +85,28 @@ describe('Teste rota Login', () => {
 
     expect(chaiHttpResponse.body).to.be.a('object');
   });
+});
+
+describe('Teste rota "/login/validate"', () => {
+
+  let chaiHttpResponse: Response;
+
+  before(async () => {
+    sinon
+      .stub(User, "findOne")
+      .resolves(UserMock as User);
+  });
+
+  after(()=>{
+    (User.findOne as sinon.SinonStub).restore();
+  })
+
+  it('Valida acesso sem token', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .get('/login/validate')
+
+    expect(chaiHttpResponse.status).equal(401);
+  });
+
 });
