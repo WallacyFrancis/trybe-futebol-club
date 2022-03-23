@@ -26,13 +26,13 @@ describe('Teste rota Login', () => {
     (User.findOne as sinon.SinonStub).restore();
   })
 
-  it('Valida status de campo email vazio igual 400', async () => {
+  it('Valida status de campo email vazio igual 401', async () => {
     chaiHttpResponse = await chai
        .request(app)
        .post('/login')
        .send({ password: "$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW" })
 
-    expect(chaiHttpResponse.status).equal(400);
+    expect(chaiHttpResponse.status).equal(401);
   });
 
   it('Valida mensagem de campo email vazio', async () => {
@@ -41,16 +41,16 @@ describe('Teste rota Login', () => {
        .post('/login')
        .send({ password: "$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW" })
 
-    expect(chaiHttpResponse.body).contains({ message: "Email is not empty"});
+    expect(chaiHttpResponse.body).contains({ message: "All fields must be filled"});
   });
 
-  it('Valida status de campo password vazio igual 400', async () => {
+  it('Valida status de campo password vazio igual 401', async () => {
     chaiHttpResponse = await chai
        .request(app)
        .post('/login')
        .send({ email: "admin@admin.com" })
 
-    expect(chaiHttpResponse.status).equal(400);
+    expect(chaiHttpResponse.status).equal(401);
   });
 
   it('Valida mensagem de campo password vazio', async () => {
@@ -59,10 +59,10 @@ describe('Teste rota Login', () => {
        .post('/login')
        .send({ email: "admin@admin.com" })
 
-    expect(chaiHttpResponse.body).contains({ message: "Password is not empty"});
+    expect(chaiHttpResponse.body).contains({ message: "All fields must be filled"});
   });
 
-  it('Valida se é possível realizar um login com sucesso', async () => {
+  it('Valida se é possível realizar um login com sucesso com status 200', async () => {
     chaiHttpResponse = await chai
        .request(app)
        .post('/login')
@@ -72,5 +72,17 @@ describe('Teste rota Login', () => {
         })
 
     expect(chaiHttpResponse.status).equal(200);
+  });
+
+  it('Valida se é possível realizar um login com sucesso com retrno de um objeto', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .post('/login')
+       .send({ 
+         email: "admin@admin.com",
+         password: "$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW"
+        })
+
+    expect(chaiHttpResponse.body).to.be.a('object');
   });
 });
