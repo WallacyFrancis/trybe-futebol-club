@@ -1,6 +1,7 @@
 import * as express from 'express';
 import UserController from './database/controller/User';
 import UserValidation from './middlewares/userValidate';
+import ClubController from './database/controller/Club';
 import Token from './middlewares/tokenValidate';
 
 class App {
@@ -23,11 +24,20 @@ class App {
 
     this.app.use(accessControl);
     this.app.use(express.json());
+
     this.app.get(
       '/login/validate',
       Token.decode,
       UserController.loginValidate,
-    )
+    );
+    this.app.get(
+      '/clubs',
+      ClubController.findAll,
+    );
+    this.app.get(
+      '/clubs/:id',
+      ClubController.findByPk,
+    );
     this.app.post(
       '/login',
       UserValidation.email,
@@ -35,6 +45,7 @@ class App {
       UserValidation.login,
       UserController.login
     );
+
   }
 
   // ...
