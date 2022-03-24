@@ -1,23 +1,13 @@
 import ClubModel from '../models/Club'
 
-const parseCamelCase = (arr: object[]) => {
-  return arr.map((item: any) => ({
-    id: item.id,
-    clubName: item.club_name
-  }));
-}
-
 export default class Club {
   static async findAll() {
     const clubs = await ClubModel.findAll()
-    return parseCamelCase(clubs);
+    return clubs;
   }
 
   static async findByPk(id: number) {
     const club = await ClubModel.findByPk(id);
-    return {
-      id: club?.id,
-      clubName: club?.club_name,
-    };
+    return club;
   }
 }
