@@ -13,7 +13,7 @@ Club.init({
     primaryKey: true,
     autoIncrement: true,
   },
-  club_name: {
+  clubName: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -30,7 +30,8 @@ Club.init({
   * Associations 1:N devem ficar em uma das instâncias de modelo
   * */
 
-Club.hasMany(Match, { foreignKey: 'id', as: 'matchs' });
-Match.belongsTo(Club, { foreignKey: 'id', as: 'clubs' });
+// Club.hasMany(Match, { foreignKey: 'id', as: 'matchs' });
+// Match.belongsTo(Club, { foreignKey: 'id', as: 'clubs' });
+
 
 export default Club;
