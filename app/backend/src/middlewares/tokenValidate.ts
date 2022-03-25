@@ -7,6 +7,7 @@ const secret = fs.readFileSync('./jwt.evaluation.key', 'utf-8');
 
 const messagesError = {
   tokenInvalid: { message: 'Invalid token '},
+  tokenNull: { message: 'Token is required' },
 };
 
 export default class Token {
@@ -28,6 +29,17 @@ export default class Token {
       const { tokenInvalid } = messagesError;
       res.status(401).json(tokenInvalid);
     };
+  }
+
+  static verifyToken(req: Request, res: Response, next: NextFunction) {
+    const { tokenNull } = messagesError;
+    try {
+      const token = req.headers.authorization;
+      if (!token) return res.status(401).json(tokenNull)
+      next()
+    } catch (e) {
+      console.log(e);
+    }
   }
 
 }

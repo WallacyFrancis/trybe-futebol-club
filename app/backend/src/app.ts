@@ -3,6 +3,7 @@ import UserController from './database/controller/User';
 import UserValidation from './middlewares/userValidate';
 import ClubController from './database/controller/Club';
 import MatchController from './database/controller/Match';
+import MatchValidate from './middlewares/matchsValidate';
 import Token from './middlewares/tokenValidate';
 
 class App {
@@ -50,6 +51,8 @@ class App {
     );
     this.app.post(
       '/matchs',
+      Token.verifyToken,
+      MatchValidate.verifyFields,
       MatchController.create,
     );
 

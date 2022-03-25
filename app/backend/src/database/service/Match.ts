@@ -1,6 +1,6 @@
 import MatchModel from '../models/Match';
 import ClubModel from '../models/Club';
-import IMatch from '../../interfaces/Match';
+import { IMatch, OutMatch } from '../../interfaces/Match';
 
 export default class Match {
   static async findAll() {
@@ -24,7 +24,7 @@ export default class Match {
     return matchs;
   };
 
-  static async create(matchs: IMatch) {
+  static async create(matchs: IMatch): Promise<OutMatch> {
     const match = await MatchModel.create(matchs);
     return match;
   }
