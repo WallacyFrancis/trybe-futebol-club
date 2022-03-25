@@ -12,8 +12,7 @@ export default class UserValidate {
   static fieldsNull(req: Request, res: Response, next: NextFunction) {
     const { email, password } = req.body;
     const { fieldsTest } = messagesError;
-    if (!email) return res.status(401).json(fieldsTest);
-    if (!password) return res.status(401).json(fieldsTest);
+    if (!email || !password) return res.status(401).json(fieldsTest);
     next();
   }
 

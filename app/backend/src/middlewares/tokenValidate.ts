@@ -18,13 +18,12 @@ export default class Token {
     this._token = token;
   };
 
-  static async decode(req: Request, res: Response, next: NextFunction) {
+  static async decode(req: Request, res: Response) {
     try {
-      const { email } = req.body
       const token: any = req.headers.authorization;
-      const user: any = await UserService.login(email);
       const decode: any = await jwt.verify(token, secret);
-    if (decode.email === user.email) return next();
+      const user: any = await UserService.login(decode.email);
+      res.status(200).send(user.role);
     } catch(e) {
       const { tokenInvalid } = messagesError;
       res.status(401).json(tokenInvalid);

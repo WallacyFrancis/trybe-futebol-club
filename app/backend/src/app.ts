@@ -29,7 +29,6 @@ class App {
     this.app.get(
       '/login/validate',
       Token.decode,
-      UserController.loginValidate,
     );
     this.app.get(
       '/clubs',
