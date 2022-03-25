@@ -5,12 +5,17 @@ export default class Match {
   static async findAll(req: Request, res: Response) {
     const { inProgress } = req.query as unknown as { inProgress: string };
     let matchs;
-    if (inProgress) {
-      matchs = await MatchService.getInProgress(inProgress);
-      console.log(matchs);
-    } else {
-      matchs = await MatchService.findAll();
+    switch (inProgress) {
+      case 'true':
+        matchs = await MatchService.getInProgress(true);
+        break;
+      case 'false':
+        matchs = await MatchService.getInProgress(false);
+        break;
+      default:
+        matchs = await MatchService.findAll();
+        break;
     }
-    res.status(200).send(matchs)
+    res.status(200).json(matchs);
   };
 };

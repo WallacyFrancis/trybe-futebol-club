@@ -12,7 +12,7 @@ export default class Match {
     return matchs;
   };
 
-  static async getInProgress(inProgress: string) {
+  static async getInProgress(inProgress: boolean) {
     const matchs = await MatchModel.findAll({
       where: { inProgress },
       include: [
