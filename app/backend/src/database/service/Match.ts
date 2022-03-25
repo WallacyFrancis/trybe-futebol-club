@@ -1,5 +1,6 @@
 import MatchModel from '../models/Match';
 import ClubModel from '../models/Club';
+import IMatch from '../../interfaces/Match';
 
 export default class Match {
   static async findAll() {
@@ -22,6 +23,9 @@ export default class Match {
     });
     return matchs;
   };
-};
 
-// homeClub: await this.getHomeTeam(Number(match.dataValues.homeTeam))
+  static async create(matchs: IMatch) {
+    const match = await MatchModel.create(matchs);
+    return match;
+  }
+};

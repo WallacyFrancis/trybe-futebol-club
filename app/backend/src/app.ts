@@ -48,6 +48,10 @@ class App {
       UserValidation.login,
       UserController.login
     );
+    this.app.post(
+      '/matchs',
+      MatchController.create,
+    );
 
   }
 
