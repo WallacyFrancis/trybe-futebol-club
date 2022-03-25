@@ -37,11 +37,11 @@ export default class Token {
   static async crypt(req: Request, res: Response, next: NextFunction) {
     try {
       const { email, password } = req.body;
-      const user: any = await UserService.login(email);
+      const user: any = await UserService.getPassword(email);
       const bcryptCompare = bcrypt.compareSync(password, user.password);
       const { userNotFound } = messagesError;
       if (bcryptCompare) return next();
-      res.status(400).json(userNotFound);
+      res.status(401).json(userNotFound);
     } catch (e) {
       console.log(e);
     };

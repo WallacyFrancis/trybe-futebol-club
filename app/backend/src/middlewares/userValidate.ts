@@ -7,16 +7,10 @@ const messagesError = {
 };
 
 export default class UserValidate {
-  static email(req: Request, res: Response, next: NextFunction) {
-    const { email } = req.body;
+  static fieldsNull(req: Request, res: Response, next: NextFunction) {
+    const { email, password } = req.body;
     const { fieldsTest } = messagesError;
     if (!email) return res.status(401).json(fieldsTest);
-    next();
-  }
-  
-  static password(req: Request, res: Response, next: NextFunction) {
-    const { password } = req.body;
-    const { fieldsTest } = messagesError;
     if (!password) return res.status(401).json(fieldsTest);
     next();
   }

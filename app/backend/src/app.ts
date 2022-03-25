@@ -45,8 +45,7 @@ class App {
     );
     this.app.post(
       '/login',
-      UserValidation.email,
-      UserValidation.password,
+      UserValidation.fieldsNull,
       UserValidation.login,
       Token.crypt,
       UserController.login

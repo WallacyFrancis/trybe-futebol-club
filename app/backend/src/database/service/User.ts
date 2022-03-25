@@ -18,4 +18,10 @@ export default class User {
       email: user?.email,
     };
   }
+
+  static async getPassword(email: string) {
+    const user = await UserModel.findOne({ where: { email }});
+    return { password: user?.password };
+  }
+  
 };
