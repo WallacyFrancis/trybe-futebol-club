@@ -9,8 +9,13 @@ export default class User {
     this._password = password
   }
 
-  static async login(email: string, password: string) {
-    const user = await UserModel.findOne({ where: {email, password}});
-    return user;
+  static async login(email: string) {
+    const user = await UserModel.findOne({ where: { email }});
+    return {
+      id: user?.id,
+      username: user?.username,
+      role: user?.role,
+      email: user?.email,
+    };
   }
 };

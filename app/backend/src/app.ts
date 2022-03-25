@@ -48,6 +48,7 @@ class App {
       UserValidation.email,
       UserValidation.password,
       UserValidation.login,
+      Token.crypt,
       UserController.login
     );
 

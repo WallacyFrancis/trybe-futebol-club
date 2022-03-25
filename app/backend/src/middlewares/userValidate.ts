@@ -3,7 +3,7 @@ import UserService from '../database/service/User';
 
 const messagesError = {
   fieldsTest: { message: 'All fields must be filled' },
-  userNotFound: { message: 'Incorrect email or password' }
+  userNotFound: { message: 'Incorrect email or password' },
 };
 
 export default class UserValidate {
@@ -22,10 +22,10 @@ export default class UserValidate {
   }
 
   static async login(req: Request, res: Response, next: NextFunction) {
-    const { email, password } = req.body;
+    const { email } = req.body;
     const { userNotFound } = messagesError
-    const user = await UserService.login(email, password);
-    if (!user) return res.status(401).json(userNotFound)
+    const user = await UserService.login(email);
+    if (!user) return res.status(401).json(userNotFound);
     next();
   }
 }
