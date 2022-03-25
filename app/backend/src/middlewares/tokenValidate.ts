@@ -3,13 +3,10 @@ import UserService from '../database/service/User';
 import * as jwt from 'jsonwebtoken';
 import * as fs from 'fs';
 
-
-const bcrypt  = require('bcryptjs');
 const secret = fs.readFileSync('./jwt.evaluation.key', 'utf-8');
 
 const messagesError = {
   tokenInvalid: { message: 'Invalid token '},
-  userNotFound: { message: 'Incorrect email or password' },
 };
 
 export default class Token {
@@ -34,16 +31,4 @@ export default class Token {
     };
   }
 
-  static async crypt(req: Request, res: Response, next: NextFunction) {
-    try {
-      const { email, password } = req.body;
-      const user: any = await UserService.getPassword(email);
-      const bcryptCompare = bcrypt.compareSync(password, user.password);
-      const { userNotFound } = messagesError;
-      if (bcryptCompare) return next();
-      res.status(401).json(userNotFound);
-    } catch (e) {
-      console.log(e);
-    };
-  }
 }

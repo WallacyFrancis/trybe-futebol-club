@@ -47,7 +47,6 @@ class App {
       '/login',
       UserValidation.fieldsNull,
       UserValidation.login,
-      Token.crypt,
       UserController.login
     );
 

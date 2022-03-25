@@ -6,6 +6,8 @@ const messagesError = {
   userNotFound: { message: 'Incorrect email or password' },
 };
 
+const bcrypt  = require('bcryptjs');
+
 export default class UserValidate {
   static fieldsNull(req: Request, res: Response, next: NextFunction) {
     const { email, password } = req.body;
@@ -16,10 +18,16 @@ export default class UserValidate {
   }
 
   static async login(req: Request, res: Response, next: NextFunction) {
-    const { email } = req.body;
-    const { userNotFound } = messagesError
-    const user = await UserService.login(email);
-    if (!user) return res.status(401).json(userNotFound);
-    next();
+    const { userNotFound } = messagesError;
+    try {
+      const { email, password } = req.body;
+      const user: any = await UserService.getPassword(email);
+      const bcryptCompare = bcrypt.compareSync(password, user.password);
+      if (!bcryptCompare) return res.status(401).json(userNotFound);
+      next();
+    } catch (e) {
+      console.log(e);
+      res.status(401).json(userNotFound);
+    };
   }
 }
