@@ -53,6 +53,7 @@ class App {
       '/matchs',
       Token.verifyToken,
       MatchValidate.verifyFields,
+      MatchValidate.clubsError,
       MatchController.create,
     );
 
