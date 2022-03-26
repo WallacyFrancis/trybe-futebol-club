@@ -31,6 +31,18 @@ export default class Token {
     };
   }
 
+  static requestToken(req: Request, res: Response, next: NextFunction) {
+    try {
+      const token: any = req.headers.authorization;
+      const { tokenNull } = messagesError;
+      if (!token) return res.status(401).json(tokenNull)
+      next()
+    } catch (e) {
+      const { tokenNull } = messagesError;
+      res.status(401).json(tokenNull)
+    }
+  }
+
   static verifyToken(req: Request, res: Response, next: NextFunction) {
     const { tokenNull } = messagesError;
     try {

@@ -1,4 +1,5 @@
 import * as express from 'express';
+import * as cors from 'cors';
 import UserController from './database/controller/User';
 import UserValidation from './middlewares/userValidate';
 import ClubController from './database/controller/Club';
@@ -26,6 +27,7 @@ class App {
 
     this.app.use(accessControl);
     this.app.use(express.json());
+    this.app.use(cors());
 
     this.app.get(
       '/login/validate',
@@ -51,7 +53,7 @@ class App {
     );
     this.app.post(
       '/matchs',
-      Token.verifyToken,
+      Token.requestToken,
       MatchValidate.verifyFields,
       MatchValidate.clubsError,
       MatchController.create,

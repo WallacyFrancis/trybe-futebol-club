@@ -68,7 +68,7 @@ describe('Teste rota "/login"', () => {
        .post('/login')
        .send({ 
          email: "admin@admin.com",
-         password: "$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW"
+         password: "secret_admin"
         })
 
     expect(chaiHttpResponse.status).equal(200);
@@ -203,6 +203,20 @@ describe('Teste rota "/matchs"', () => {
        .get('/matchs')
 
     expect(chaiHttpResponse.body).to.be.a('array');
+  });
+
+  it('Valida adicionar um novo match "/matchs" com campos inválidos', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .post('/matchs')
+       .send({
+          "homeTeam": 16,
+          "awayTeam": 8,
+          "homeTeamGoals": 2,
+          "awayTeamGoals": 2,
+       })
+
+    expect(chaiHttpResponse.status).equal(401);
   });
 
 });
