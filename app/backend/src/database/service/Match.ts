@@ -28,4 +28,14 @@ export default class Match {
     const match = await MatchModel.create(matchs);
     return match;
   }
+
+  static async updateFinish(id: number) {
+    await MatchModel.update(
+      { inProgress: false },
+      { where: { id }},
+    );
+
+    const match = await MatchModel.findByPk(id)
+    return match;
+  }
 };

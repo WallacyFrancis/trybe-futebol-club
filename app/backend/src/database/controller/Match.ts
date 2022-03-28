@@ -23,4 +23,10 @@ export default class Match {
     const match = await MatchService.create(req.body);
     res.status(201).json(match);
   };
+
+  static async updateFinish(req: Request, res: Response) {
+    const { id } = req.params;
+    const match = await MatchService.updateFinish(Number(id));
+    res.status(200).json(match);
+  };
 };

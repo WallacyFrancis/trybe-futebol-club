@@ -58,6 +58,11 @@ class App {
       MatchValidate.clubsError,
       MatchController.create,
     );
+    this.app.patch(
+      '/matchs/:id/finish',
+      Token.verifyToken,
+      MatchController.updateFinish,
+    )
 
   }
 

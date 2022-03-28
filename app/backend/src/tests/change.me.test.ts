@@ -30,7 +30,7 @@ describe('Teste rota "/login"', () => {
     chaiHttpResponse = await chai
        .request(app)
        .post('/login')
-       .send({ password: "$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW" })
+       .send({ password: "secret_admin" })
 
     expect(chaiHttpResponse.status).equal(401);
   });
@@ -39,7 +39,7 @@ describe('Teste rota "/login"', () => {
     chaiHttpResponse = await chai
        .request(app)
        .post('/login')
-       .send({ password: "$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW" })
+       .send({ password: "secret_admin" })
 
     expect(chaiHttpResponse.body).contains({ message: "All fields must be filled"});
   });
