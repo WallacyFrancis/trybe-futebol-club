@@ -62,7 +62,11 @@ class App {
       '/matchs/:id/finish',
       Token.verifyToken,
       MatchController.updateFinish,
-    )
+    );
+    this.app.patch(
+      '/matchs/:id',
+      MatchController.update,
+    );
 
   }
 

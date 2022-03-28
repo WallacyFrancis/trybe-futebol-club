@@ -38,4 +38,13 @@ export default class Match {
     const match = await MatchModel.findByPk(id)
     return match;
   }
+
+  static async update(homeTeamGoals: number, awayTeamGoals: number, id: number) {
+    await MatchModel.update(
+      { homeTeamGoals, awayTeamGoals },
+      { where: { id }},
+    );
+    const match = MatchModel.findByPk(id);
+    return match;
+  }
 };

@@ -29,4 +29,11 @@ export default class Match {
     const match = await MatchService.updateFinish(Number(id));
     res.status(200).json(match);
   };
+
+  static async update(req: Request, res: Response) {
+    const { id } = req.params;
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+    const match = MatchService.update(homeTeamGoals, awayTeamGoals, Number(id))
+    res.status(200).json(match);
+  }
 };
