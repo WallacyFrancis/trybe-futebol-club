@@ -105,8 +105,8 @@ export default class LeaderBoardHome {
 
   static getEfficiency(points: number, games: number) {
     const efficiency = (points / (games * 3)) * 100;
-    if (efficiency === 0) return efficiency;
-    return efficiency.toFixed(2)
+    const result = efficiency % 1 === 0 ? efficiency : efficiency.toFixed(2)
+    return result;
   };
   
   static sortMatchs(arr: any) {
