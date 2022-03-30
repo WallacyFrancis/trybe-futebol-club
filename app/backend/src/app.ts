@@ -4,6 +4,7 @@ import UserController from './database/controller/User';
 import UserValidation from './middlewares/userValidate';
 import ClubController from './database/controller/Club';
 import MatchController from './database/controller/Match';
+import LeaderBoard from './database/controller/LeaderBoard';
 import MatchValidate from './middlewares/matchsValidate';
 import Token from './middlewares/tokenValidate';
 
@@ -45,6 +46,10 @@ class App {
       '/matchs',
       MatchController.findAll,
     );
+    this.app.get(
+      '/leaderboard/home',
+      LeaderBoard.getHome,
+    )
     this.app.post(
       '/login',
       UserValidation.fieldsNull,
