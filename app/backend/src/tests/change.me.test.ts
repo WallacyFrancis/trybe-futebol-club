@@ -220,3 +220,35 @@ describe('Teste rota "/matchs"', () => {
   });
 
 });
+
+describe('Teste rota "/leaderboard/home"', () => {
+
+  let chaiHttpResponse: Response;
+
+  before(async () => {
+    sinon
+      .stub(User, "findOne")
+      .resolves(UserMock as User);
+  });
+
+  after(()=>{
+    (User.findOne as sinon.SinonStub).restore();
+  })
+
+  it('Valida status da rota "/leaderboard/home"', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .get('/leaderboard/home')
+
+    expect(chaiHttpResponse.status).equal(200);
+  });
+
+  it('Valida retorno da rota "/leaderboard/home" como array', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .get('/leaderboard/home')
+
+    expect(chaiHttpResponse.body).to.be.a('array');
+  });
+
+});

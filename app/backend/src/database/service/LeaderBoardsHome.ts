@@ -1,22 +1,8 @@
 import MatchModels from '../models/Match';
 import ClubModel from '../models/Club';
 
-// total de pontos = win + 3 , loss 0 , empate + 1
-// aproveitamento = Pontos/TotalJogos * 3)*100 -> com duas casas decimais
 
-/* 
-  "name": "Palmeiras", 
-  "totalPoints": 13,
-  "totalGames": 5,
-  "totalVictories": 4,
-  "totalDraws": 1,
-  "totalLosses": 0,
-  "goalsFavor": 17,
-  "goalsOwn": 5,
-  "goalsBalance": 12,
-  "efficiency": 86.67
-*/
-
+// Auxiliado por Giovanni Tumar 14B
 export default class LeaderBoardHome {
   static async clubHome() {
     const matchs = await MatchModels.findAll({
@@ -119,12 +105,13 @@ export default class LeaderBoardHome {
 
   static getEfficiency(points: number, games: number) {
     const efficiency = (points / (games * 3)) * 100;
-    return efficiency.toFixed(2);
-  }
+    if (efficiency === 0) return efficiency;
+    return efficiency.toFixed(2)
+  };
   
   static sortMatchs(arr: any) {
     arr.sort((matchA: any, matchB: any) => {
-      let orden = matchB.totalVictories - matchA.totalVictories;
+      let orden = matchB.totalPoints - matchA.totalPoints;
       if (orden === 0) {
         orden = matchB.goalsBalance - matchA.goalsBalance;
         if (orden === 0) {
