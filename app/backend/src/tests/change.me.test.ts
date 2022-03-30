@@ -252,3 +252,35 @@ describe('Teste rota "/leaderboard/home"', () => {
   });
 
 });
+
+describe('Teste rota "/leaderboard/home"', () => {
+
+  let chaiHttpResponse: Response;
+
+  before(async () => {
+    sinon
+      .stub(User, "findOne")
+      .resolves(UserMock as User);
+  });
+
+  after(()=>{
+    (User.findOne as sinon.SinonStub).restore();
+  })
+
+  it('Valida status da rota "/leaderboard/away"', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .get('/leaderboard/away')
+
+    expect(chaiHttpResponse.status).equal(200);
+  });
+
+  it('Valida retorno da rota "/leaderboard/away" como array', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .get('/leaderboard/away')
+
+    expect(chaiHttpResponse.body).to.be.a('array');
+  });
+
+});

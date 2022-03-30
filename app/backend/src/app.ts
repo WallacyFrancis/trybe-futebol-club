@@ -49,7 +49,11 @@ class App {
     this.app.get(
       '/leaderboard/home',
       LeaderBoard.getHome,
-    )
+    );
+    this.app.get(
+      '/leaderboard/away',
+      LeaderBoard.getAway,
+    );
     this.app.post(
       '/login',
       UserValidation.fieldsNull,
